@@ -15,11 +15,11 @@ pickle_in = open('C:/Users/Heather/OneDrive/Documents/EcModel/EnsembleModel.pkl'
 loaded_model = pickle.load(pickle_in)
 
 # defining the function which will make the prediction using the data which the user inputs 
-def prediction(lights, t1, rh1, t2, rh2, t3, rh3, t4, rh4, t5, rh5, rh6, t7, rh7, t8, rh8, rh9, tout, press_mm_hg, rhout, windspeed,tdewpoint):  
+def prediction(building_id, meter, site_id, primary_use, floor_count, air_temperature, cloud_coverage, dew_temperature, hour, weekday, month):  
     
     # Making predictions 
    prediction = loaded_model.predict( 
-       [[lights, t1, rh1, t2, rh2, t3, rh3, t4, rh4, t5, rh5, rh6, t7, rh7, t8, rh8, rh9, tout, press_mm_hg, rhout, windspeed,tdewpoint]])
+       [[building_id, meter, site_id, primary_use, floor_count, air_temperature, cloud_coverage, dew_temperature, hour, weekday, month]])
        
    if prediction == 0:
        pred = 'Rejected'
@@ -42,35 +42,26 @@ def main():
     st.markdown(html_temp, unsafe_allow_html = True) 
       
     # following lines create boxes in which user can enter data required to make prediction 
-    lights = st.number_input("Lights") 
-    t1 = st.number_input("Temperature of Kitchen") 
-    rh1 = st.number_input("Humidity of Kitchen")
-    t2 = st.number_input("Temperature of Living Room")
-    rh2 = st.number_input("Humidity of Living Room")
-    t3 = st.number_input("Temperature of Laundry room area")
-    rh3 = st.number_input("Humidity of Laundry room area")
-    t4 = st.number_input("Temperature of office room")
-    rh4 = st.number_input("Humidity of office room")
-    t5 = st.number_input("Temperature of bathroom")
-    rh5 = st.number_input("Humidity of bathroom")
-    rh6 = st.number_input("Humidity of Outside the building")
-    t7 = st.number_input("Temperature of Ironing room")
-    rh7 = st.number_input("Humidity of Ironing room")
-    t8 = st.number_input("Temperature of teenager room")
-    rh8 = st.number_input("Humidity of teenager room")
-    rh9 = st.number_input("Humidity of Parent room")
-    tout = st.number_input("Temperature of outside")
-    press_mm_hg = st.number_input("Pressure")
-    rhout = st.number_input("Humidity of outside")
-    windspeed = st.number_input("Windspeed")
-    tdewpoint = st.number_input("dew point")
+    building_id = st.number_input("building_id") 
+    meter = st.number_input("meter") 
+    site_id = st.number_input("site_id")
+    primary_use = st.number_input("primary_use")
+    floor_count = st.number_input("floor_count")
+    air_temperature = st.number_input("air_temperature")
+    cloud_coverage = st.number_input("cloud_coverage")
+    dew_temperature = st.number_input("dew_temperature")
+    hour = st.number_input("hour")
+    weekday = st.number_input("weekday")
+    month = st.number_input("month")
+    
+    #code for prediction
     result =""
       
     # when 'Predict' is clicked, make the prediction and store it 
     if st.button("Predict"): 
-        result = prediction(lights, t1, rh1, t2, rh2, t3, rh3, t4, rh4, t5, rh5, rh6, t7, rh7, t8, rh8, rh9, tout, press_mm_hg, rhout, windspeed,tdewpoint) 
-        st.success('Your future Energy consumption for the building is {}'.format(result))
-        print(prediction)
+        result = prediction(building_id, meter, site_id, primary_use, floor_count, air_temperature, cloud_coverage, dew_temperature, hour, weekday, month) 
+    st.success('Your future Energy consumption for the building is {}'.format(result))
+        #print(result)
      
 if __name__=='__main__': 
     main()
