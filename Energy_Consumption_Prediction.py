@@ -11,7 +11,7 @@ import streamlit as st
 
 
 #loading saved model
-pickle_in = open('C:/Users/Heather/OneDrive/Documents/EcModel/EnsembleModel.pkl', 'rb')
+pickle_in = open('https://github.com/SusanSagwa/Energy-Consumption-Prediction-In-Smart-Buildings-Using-Ensemble-Learning/blob/main/EnsembleModel.pkl', 'rb')
 loaded_model = pickle.load(pickle_in)
 
 # defining the function which will make the prediction using the data which the user inputs 
